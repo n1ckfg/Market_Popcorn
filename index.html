@@ -1,0 +1,174 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/stylesheet.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/popcorn.js"></script>
+	<script type="text/javascript" src="js/popcorn.googlemap.js"></script>
+	<script type="text/javascript">
+		//8th st. & market st. sf:   37¡46'43.40"N, 122¡24'53.12"W
+		//embarcadero sf:   37¡47'40.22"N, 122¡23'38.69"W
+		var totalSec = (3*60)+35;  // 3:50 total, streetcar stops 3:35
+		//--
+		var startLat = 37.778722;
+		var endLat = 37.794506;
+		var startLng = -122.414756;
+		var endLng = -122.394081;
+		//--
+		var m1DeltaTime = 8;
+		var m1Counter = 0;
+		var m1CounterMax = totalSec/m1DeltaTime;
+		var m1DeltaLat = (Math.abs(Math.abs(endLat)-Math.abs(startLat)))/m1CounterMax;
+		var m1DeltaLng = (Math.abs(Math.abs(endLng)-Math.abs(startLng)))/m1CounterMax;
+		var m1Start=0;
+		var m1End=m1Start + m1DeltaTime;
+		var m1Lat = startLat;
+		var m1Lng = startLng;
+		var m1Heading = 0;
+		var m1Pitch = 3;
+		var m1Zoom = 17;
+		var m1Location = ""  //"604 Ossington Ave., Toronto";
+		//--
+		var m2DeltaTime = 15;
+		var m2Counter = 0;
+		var m2CounterMax = totalSec/m2DeltaTime;
+		var m2DeltaLat = (Math.abs(Math.abs(endLat)-Math.abs(startLat)))/m2CounterMax;
+		var m2DeltaLng = (Math.abs(Math.abs(endLng)-Math.abs(startLng)))/m2CounterMax;
+		var m2Start=0;
+		var m2End=m2Start + m2DeltaTime;
+		var m2Lat = startLat;
+		var m2Lng = startLng;
+		var m2Heading = 45;
+		var m2Pitch = 1;
+		var m2Zoom = 1;
+		var m2Location = ""  //"604 Ossington Ave., Toronto";
+		//--
+		var foo1, foo2;
+		var foo1x = 0;
+		var foo1y = 0;
+		var foo2x = 0;
+		var foo2y = 0;
+		
+		function setup(){
+		foo1 = document.getElementById("foo1");
+		foo2 = document.getElementById("foo2");
+		draw();
+		}
+		
+		function draw(){
+		drawP();
+		drawQ();
+		shake();
+		}
+		
+		function drawP(){
+					var $p = Popcorn("#video").googlemap({
+				"id":"googlemap",
+				"start":m1Start,
+				"end":m1End,
+				"target":"map-container1",
+				"type":"ROADMAP",
+				//"heading":m1Heading,
+				//"pitch":m1Pitch,
+				"zoom":m1Zoom,
+				"location":m1Location,
+				"lat":m1Lat,
+				"lng":m1Lng
+			});
+	
+			//uncomment to auto play
+			$p.play();
+		
+			if(m1Counter<m1CounterMax){
+				m1Lat+=m1DeltaLat;
+				m1Lng+=m1DeltaLng;
+				m1Start+=m1DeltaTime;
+				m1End+=m1DeltaTime;
+				m1Counter++;
+			}
+			$("#coords").html("Lat: " + m1Lat + "<br>Lng: " + m1Lng);
+			setTimeout(drawP,m1DeltaTime*1000);
+			}
+		
+		function drawQ(){
+				   var $q = Popcorn("#video").googlemap({
+				"id":"googlemap",
+				"start":m2Start,
+				"end":m2End,
+				"target":"map-container2",
+				"type":"STREETVIEW",
+				"heading":m2Heading,
+				"pitch":m2Pitch,
+				"zoom":m2Zoom,
+				"location":m2Location,
+				"lat":m2Lat,
+				"lng":m2Lng
+			});
+			//uncomment to auto play
+			$q.play();
+			
+			if(m2Counter<m2CounterMax){
+				m2Lat+=m2DeltaLat;
+				m2Lng+=m2DeltaLng;
+				m2Start+=m2DeltaTime;
+				m2End+=m2DeltaTime;
+				m2Counter++;
+			}
+			//$("#coords").html("Lat: " + m2Lat + "<br>Lng: " + m2Lng);
+			setTimeout(drawQ,m2DeltaTime*1000);
+}
+
+function shake(){
+	if(foo1x<1920){
+	foo1x += 320;
+	} else if(foo1x>=1920&&foo1y<1920){
+	foo1x = 0;
+	foo1y += 480;
+	} else if(foo1x>=1920&&foo1y>=1920){
+	foo1x=0;
+	foo1y=0;
+	}
+	if(foo2x<1920){
+	foo2x += 320;
+	} else if(foo2x>=1920&&foo2y<1920){
+	foo2x = 0;
+	foo2y += 480;
+	} else if(foo2x>=1920&&foo2y>=1920){
+	foo2x=0;
+	foo2y=0;
+	}
+	foo1.style.backgroundPosition=foo1x+"px "+foo1y+"px";
+	foo2.style.backgroundPosition=foo2x+"px "+foo2y+"px";
+	setTimeout(shake,(1/24)*1000);
+}
+
+	$(setup);
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div class="butter-player">
+			<div class="butter-plugins">
+				<div id="map-container1" data-plugin="googlemap" class="butter-plugin"></div>
+			</div>
+			<div class="butter-plugins">
+				<div id="map-container2" data-plugin="googlemap" class="butter-plugin"></div>
+			</div>
+			<div class="butter-video">
+				<div class="butter-video-player">
+				<!--<h1 id="videoTitle"></h1>-->
+				<video id="video" autoplay><source src="videos/market_redux.mp4"></video>
+				<!--<p id="videoDescription"></p>-->
+				</div>
+			</div>
+		</div>
+		<div id="coords"></div>
+		<div id="foo1" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:0px;top:0px;z-index:1;opacity:0.25;"></div>
+		<div id="foo2" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:960px;top:0px;z-index:1;opacity:0.25;"></div>
+</body>
+
+</html>

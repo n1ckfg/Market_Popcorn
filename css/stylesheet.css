@@ -1,0 +1,95 @@
+body{
+background-color: #aaa;
+font-size:14px;
+font-family: 'Verdana','Arial',sans-serif;
+margin: 0px;
+/*padding-bottom: 20px;*/
+}
+
+#container{
+width:1280px;
+height:480px;
+background:black;
+border:2px solid black;
+position:relative;
+margin:1em auto auto auto;
+overflow:hidden;
+}
+
+#coords{
+width:250px;
+height:3em;
+/*border:1px solid red;*/
+position:absolute;
+z-index:1;
+left:350px;
+top:18px;
+color:white;
+font-weight:bold;
+text-shadow: black 2px 2px 4px;
+}
+
+.butter-video{
+width: 640px;
+height:480px;
+position:absolute;
+left:320px;
+top:0px;
+}
+
+#videoTitle{
+}
+
+#videoDescription{
+}
+
+.butter-plugin{
+/*border: 1px solid #c2c2c2;*/
+}
+
+#map-container1{
+width:320px;
+height:600px;
+position:absolute;
+left:0px;
+top:-100px;
+background: url('img/googlemap.png') no-repeat;
+}
+
+#map-container2{
+width:800px;
+height:600px;
+position:absolute;
+/*left:880px;
+top:-90px;*/
+left:750px;
+top:-90px;
+background: url('img/googlemap.png') no-repeat;
+}
+
+
+/*-----------*/
+
+.butter-player{
+/*
+padding: 10px;
+margin: 10px;
+text-align: left;
+margin: 0 auto;
+*/
+}
+
+.butter-video{
+width:640px;
+height:480px;
+z-index:1;
+}
+
+#video{
+width: 100%;
+}
+
+.butter-plugin{
+
+}
+
