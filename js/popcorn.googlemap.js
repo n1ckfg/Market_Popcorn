@@ -45,7 +45,7 @@ var googleCallback;
     var head = document.getElementsByTagName("head")[0];
     var script = document.createElement("script");
 
-    script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=googleCallback";
+    script.src = "https://maps.google.com/maps/api/js?sensor=false&callback=googleCallback";
     script.type = "text/javascript";
     head.insertBefore( script, head.firstChild );
   }
