@@ -1,13 +1,14 @@
+
 <!doctype html>
 
 <html>
 
 <head>
-	<title></title>
-	<link type="text/css" rel="stylesheet" href="./css/stylesheet.css">
-	<script type="text/javascript" src="./js/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/popcorn.js"></script>
-	<script type="text/javascript" src="./js/popcorn.googlemap.js"></script>
+	<title>Market St. Popcorn test</title>
+	<link type="text/css" rel="stylesheet" href="css/stylesheet.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/popcorn.js"></script>
+	<script type="text/javascript" src="js/popcorn.googlemap.js"></script>
 	<script type="text/javascript">
 		//8th st. & market st. sf:   37¡46'43.40"N, 122¡24'53.12"W
 		//embarcadero sf:   37¡47'40.22"N, 122¡23'38.69"W
@@ -140,8 +141,15 @@ function shake(){
 	foo2x=0;
 	foo2y=0;
 	}
+	
+	var limiter = 0.2;
+	var foo1opacity = Math.random()*limiter;
+	var foo2opacity = Math.random()*limiter;
 	foo1.style.backgroundPosition=foo1x+"px "+foo1y+"px";
+	foo1.style.opacity=foo1opacity;
 	foo2.style.backgroundPosition=foo2x+"px "+foo2y+"px";
+	foo2.style.opacity=foo2opacity;
+
 	setTimeout(shake,(1/24)*1000);
 }
 
@@ -161,14 +169,18 @@ function shake(){
 			<div class="butter-video">
 				<div class="butter-video-player">
 				<!--<h1 id="videoTitle"></h1>-->
-				<video id="video" autoplay><source src="./videos/market_redux.mp4"></video>
+				<video id="video" autoplay>
+				<!--<source src="videos/market_redux.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>-->
+				<!--<source src="videos/market_redux.webm" type='video/webm; codecs="vp8, vorbis"'>-->
+				<source src="videos/market_redux.mp4">
+				</video>
 				<!--<p id="videoDescription"></p>-->
 				</div>
 			</div>
 		</div>
 		<div id="coords"></div>
-		<div id="foo1" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:0px;top:0px;z-index:1;opacity:0.25;"></div>
-		<div id="foo2" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:960px;top:0px;z-index:1;opacity:0.25;"></div>
+		<div id="foo1" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:0px;top:0px;z-index:1;"></div>
+		<div id="foo2" style="width:320px;height:480px;overflow:hidden;background:url('images/snippet_selects.jpg');position:absolute;left:960px;top:0px;z-index:1;"></div>
 </body>
 
 </html>
